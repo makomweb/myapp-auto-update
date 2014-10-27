@@ -2,14 +2,24 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">        
-        <StackPanel Orientation="Horizontal">
-            <TextBlock x:Name="CurrentVersion"/>
-            <TextBlock Text=" --> "/>
-            <TextBlock x:Name="NewVersion" />
-        </StackPanel>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Installed:" />
+            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="InstalledVersion"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Current:" />
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="CurrentVersion"/>
+        </Grid>
         <StackPanel Orientation="Horizontal">
             <Button x:Name="Check" Click="OnCheckClicked" Margin="10">Check</Button>
+            <Button x:Name="Changes" Click="OnChangesClicked" Margin="10">Changes</Button>
             <Button x:Name="Update" Click="OnUpdateClicked" Margin="10">Update</Button>
             <Button x:Name="Later" Click="OnLaterClicked" Margin="10">Later</Button>
         </StackPanel>

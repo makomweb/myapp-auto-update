@@ -10,33 +10,25 @@ namespace MyAppBootstrapper
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string _changesAddress;
+
         public MainWindow()
         {
             InitializeComponent();
 
             Update.IsEnabled = false;
             Later.IsEnabled = false;
+            Changes.IsEnabled = false;
 
+            AutoUpdater.CheckForUpdateEvent += OnUpdate;
 
             //Observable.Timer(TimeSpan.FromMilliseconds(200)).Subscribe(_ => TryUpdate());
             //Observable.Timer(TimeSpan.FromMilliseconds(200)).ObserveOnDispatcher().Subscribe(_ => TryBoot());
         }
 
-        private void TryUpdate()
-        {
-            try
-            {
-                AutoUpdater.CheckForUpdateEvent += OnUpdate;
-                AutoUpdater.Start("http://<path>/AppCast.xml");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-        }
-
         private void OnUpdate(UpdateInfoEventArgs args)
         {
+#if false
             if (args.IsUpdateAvailable)
             {
                 Application.Current.Dispatcher.Invoke(() => Load(args));
@@ -45,14 +37,20 @@ namespace MyAppBootstrapper
             {
                 Application.Current.Dispatcher.Invoke(TryBoot);
             }
+#else
+            Application.Current.Dispatcher.Invoke(() => Load(args));
+#endif
         }
 
         private void Load(UpdateInfoEventArgs args)
         {
-            CurrentVersion.Text = args.InstalledVersion.ToString();
-            NewVersion.Text = args.CurrentVersion.ToString();
+            InstalledVersion.Text = args.InstalledVersion.ToString();
+            CurrentVersion.Text = args.CurrentVersion.ToString();
             Update.IsEnabled = true;
             Later.IsEnabled = true;
+            Changes.IsEnabled = true;
+
+            _changesAddress = args.ChangelogURL;
         }
 
         private static void TryBoot()
@@ -101,7 +99,12 @@ namespace MyAppBootstrapper
 
         private void OnCheckClicked(object sender, RoutedEventArgs e)
         {
-            TryUpdate();
+            AutoUpdater.Start("http://_path_/AppCast.xml");
+        }
+
+        private void OnChangesClicked(object sender, RoutedEventArgs e)
+        {
+            Process.Start(_changesAddress);
         }
     }
 }
