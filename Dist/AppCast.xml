@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item>
+<title>New version 1.0.4 for MyApp is available</title>
+<version>1.0.4.0</version>
+<url>http://wunderlist-windows.s3.amazonaws.com/win7/Setup.msi</url>
+<changelog>http://wunderlist-windows.s3.amazonaws.com/win7/Changelog.html</changelog>
+</item>

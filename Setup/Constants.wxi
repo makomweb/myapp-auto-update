@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define Name="MyApp"?>
+  <?define Manufacturer="Example"?>
+  <?define UpgradeCode="9751DCF4-0294-492C-BFC3-2FCC8DE92AC8"?>
+  <?define BundleUpgradeCode="B82508E3-5962-4996-A891-1544E3A556A4"?>
+  <?define Description="Installer package for MyApp"?>
+  <?define Comments=""?>
+  <?define DistDir="..\Dist\"?>
+  <?define BinDir="..\Debug\"?>
+</Include>

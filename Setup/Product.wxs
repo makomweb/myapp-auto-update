@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include $(sys.CURRENTDIR)\Constants.wxi?>
+  <?include $(sys.CURRENTDIR)\Version.wxi?>  
+  <Product Id="*" Name="$(var.Name)" Language="1033" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeCode)">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <Media Id="1" Cabinet="cab1.cab" EmbedCab="yes" />
+    
+    <Icon Id="app.ico" SourceFile="$(var.DistDir)favicon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="app.ico" />
+    
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id="DesktopFolder"/>
+      <Directory Id="ProgramMenuFolder"/>
+      <Directory Id='ProgramFilesFolder'>
+        <Directory Id="AppRootDirectory" Name="$(var.Name)"/>
+      </Directory>
+    </Directory>
+
+    <DirectoryRef Id="AppRootDirectory">
+      <Component Id="MyAppBootstrapper.exe" Guid="7832D9C6-1F1F-44EC-AF2A-297F505E53DE">
+        <File Id="MyAppBootstrapper.exe" KeyPath="yes" Source="$(var.BinDir)MyAppBootstrapper.exe" />
+        <Shortcut Advertise="yes"
+                    Id="MyAppShortcut"
+                    Name="MyApp"
+                    Description="Start MyApp."
+                    Directory="DesktopFolder"
+                    WorkingDirectory="AppRootDirectory"
+                    Icon="app.ico"/>
+        <Shortcut Advertise="yes"
+                  Id="MyAppProgramShortcut"
+                  Name="MyApp"
+                  Description="Start MyApp."
+                  Directory="ProgramMenuFolder"
+                  WorkingDirectory="AppRootDirectory"
+                  Icon="app.ico"/>
+      </Component>
+      <Component Id="AutoUpdater.NET.dll" Guid="645C2F1C-DEF1-40D4-A8DF-CF8C62690C9D">
+        <File Id="AutoUpdater.NET.dll" KeyPath="yes" Source="$(var.BinDir)AutoUpdater.NET.dll" />
+      </Component>
+      <Component Id="MyApp.exe" Guid="357C515D-6DF2-4002-8E00-DFEFFA5D1C60">
+        <File Id="MyApp.exe" KeyPath="yes" Source="$(var.BinDir)MyApp.exe" />
+      </Component>      
+      <Component Id="System.Reactive.Core.dll" Guid="9B8CF3B9-868C-4D7F-B6FF-87EBACBCFF54">
+        <File Id="System.Reactive.Core.dll" KeyPath="yes" Source="$(var.BinDir)System.Reactive.Core.dll" />
+      </Component>
+      <Component Id="System.Reactive.Interfaces.dll" Guid="7B6E0B48-B0C8-4B54-A9E5-BC693EF6EF73">
+        <File Id="System.Reactive.Interfaces.dll" KeyPath="yes" Source="$(var.BinDir)System.Reactive.Interfaces.dll" />
+      </Component>      
+      <Component Id="System.Reactive.Linq.dll" Guid="C1251BB2-F22A-4FAC-8A1B-046F65018FB7">
+        <File Id="System.Reactive.Linq.dll" KeyPath="yes" Source="$(var.BinDir)System.Reactive.Linq.dll" />
+      </Component>      
+      <Component Id="System.Reactive.PlatformServices.dll" Guid="9DAA5AFA-B51E-47D6-AA83-CEC5165B209D">
+        <File Id="System.Reactive.PlatformServices.dll" KeyPath="yes" Source="$(var.BinDir)System.Reactive.PlatformServices.dll" />
+      </Component>      
+      <Component Id="System.Reactive.Windows.Threading.dll" Guid="AD085874-2331-44AC-B4B5-852E2F3C8F4C">
+        <File Id="System.Reactive.Windows.Threading.dll" KeyPath="yes" Source="$(var.BinDir)System.Reactive.Windows.Threading.dll" />
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="ToInstallFiles">
+      <ComponentRef Id="MyAppBootstrapper.exe"/>
+      <ComponentRef Id="AutoUpdater.NET.dll"/>
+      <ComponentRef Id="MyApp.exe"/>
+      <ComponentRef Id="System.Reactive.Core.dll"/>
+      <ComponentRef Id="System.Reactive.Interfaces.dll"/>
+      <ComponentRef Id="System.Reactive.Linq.dll"/>
+      <ComponentRef Id="System.Reactive.PlatformServices.dll"/>
+      <ComponentRef Id="System.Reactive.Windows.Threading.dll"/>
+    </ComponentGroup>
+
+		<Feature Id="ProductFeature" Title="Setup" Level="1">
+      <ComponentGroupRef Id="ToInstallFiles" />
+		</Feature>
+	</Product>
+</Wix>
