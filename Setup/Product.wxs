@@ -74,5 +74,24 @@
 		<Feature Id="ProductFeature" Title="Setup" Level="1">
       <ComponentGroupRef Id="ToInstallFiles" />
 		</Feature>
-	</Product>
+
+    <!-- Minimal UI -->
+    <UI>
+      <UIRef Id="WixUI_Minimal" />
+      <!-- trigger custom action for launching -->
+      <Publish Dialog="ExitDialog"
+            Control="Finish"
+            Event="DoAction"
+            Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
+    </UI>
+    
+    <!-- checkbox for starting the app at the end of the installation process -->
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch My Application Name" />
+    <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
+
+    <!-- custom action for launching the app -->
+    <Property Id="WixShellExecTarget" Value="[#MyAppBootstrapper.exe]" />    
+    <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+    
+  </Product>
 </Wix>
