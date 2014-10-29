@@ -12,10 +12,10 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Installed:" />
-            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="InstalledVersion"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Current:" />
-            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="CurrentVersion"/>
+            <TextBlock Text="Current version:" />
+            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="CurrentVersion"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="New version:" />
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="NewVersion"/>
         </Grid>
         <StackPanel Orientation="Horizontal">
             <Button x:Name="Check" Click="OnCheckClicked" Margin="10">Check</Button>

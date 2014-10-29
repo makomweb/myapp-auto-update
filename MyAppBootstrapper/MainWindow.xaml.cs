@@ -44,8 +44,8 @@ namespace MyAppBootstrapper
 
         private void Load(UpdateInfoEventArgs args)
         {
-            InstalledVersion.Text = args.InstalledVersion.ToString();
-            CurrentVersion.Text = args.CurrentVersion.ToString();
+            CurrentVersion.Text = args.InstalledVersion.ToString();
+            NewVersion.Text = args.CurrentVersion.ToString();
             Update.IsEnabled = true;
             Later.IsEnabled = true;
             Changes.IsEnabled = true;
